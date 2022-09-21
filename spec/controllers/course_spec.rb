@@ -33,4 +33,19 @@ RSpec.describe CoursesController do
       expect(response).to render_template("show")
     end
   end
+
+  describe "GET new" do
+    it "assigns @course" do
+      get :new
+
+      expect(assigns[:course] ).to be_a_new(Course)
+    end
+
+    it "assigns @course" do
+      get :new
+
+      expect(response).to render_template("new")
+    end
+  end
+
 end
