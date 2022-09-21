@@ -21,6 +21,7 @@ group :development, :test do
   gem "rubocop-github"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
+  gem "rails-controller-testing"
 end
 
 group :development do
