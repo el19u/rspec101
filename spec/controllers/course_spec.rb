@@ -60,6 +60,17 @@ RSpec.describe CoursesController do
 
       expect(response).to redirect_to(courses_path)
     end
-  end
 
+    it "fails to create a new course record" do
+      post :create, params: { course: attributes_for(:course, title: nil) }
+
+      expect change{ Course.count }.by(0)
+    end
+
+    it "redirects to new" do
+      post :create, params: { course: attributes_for(:course, title: nil) }
+
+      expect(response).to render_template("new")
+    end
+  end
 end
