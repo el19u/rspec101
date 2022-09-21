@@ -7,7 +7,7 @@ RSpec.describe CoursesController do
   describe "GET index" do
     let(:course_last) { courses.last }
 
-    it "assigns @courses" do
+    it "assigns courses" do
       get :index
 
       expect(assigns[:courses]).to eq([course, course_last])
@@ -21,7 +21,7 @@ RSpec.describe CoursesController do
   end
 
   describe "GET show" do
-    it "assigns @course" do
+    it "assigns course" do
       get :show, params: { id: course.id }
 
       expect(assigns[:course]).to eq(course)
@@ -35,13 +35,13 @@ RSpec.describe CoursesController do
   end
 
   describe "GET new" do
-    it "assigns @course" do
+    it "assigns course" do
       get :new
 
       expect(assigns[:course] ).to be_a_new(Course)
     end
 
-    it "assigns @course" do
+    it "assigns course" do
       get :new
 
       expect(response).to render_template("new")
@@ -71,6 +71,20 @@ RSpec.describe CoursesController do
       post :create, params: { course: attributes_for(:course, title: nil) }
 
       expect(response).to render_template("new")
+    end
+  end
+
+  describe "GET edit" do
+    it "assigns course" do
+      get :edit, params: { id: course.id }
+
+      expect(assigns[:course]).to eq(course)
+    end
+
+    it "render template" do
+      get :edit, params: { id: course.id }
+
+      expect(response).to render_template("edit")
     end
   end
 end

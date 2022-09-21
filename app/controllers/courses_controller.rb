@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class CoursesController < ApplicationController
   before_action :find_course, only: [:show, :edit, :update, :destroy]
-  before_action :course_params, only: [:create, :edit, :update, :destroy]
+  before_action :course_params, only: [:create, :update]
 
   def index
     @courses = Course.all
