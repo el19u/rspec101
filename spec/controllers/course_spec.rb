@@ -48,4 +48,18 @@ RSpec.describe CoursesController do
     end
   end
 
+  describe "POST create" do
+    it "create a new course record" do
+      post :create, params: { course: attributes_for(:course) }
+
+      expect change{ Course.count }.by(1)
+    end
+
+    it "redirects to courses_path" do
+      post :create, params: { course: attributes_for(:course) }
+
+      expect(response).to redirect_to(courses_path)
+    end
+  end
+
 end
