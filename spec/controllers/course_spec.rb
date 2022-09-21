@@ -2,20 +2,35 @@ require 'rails_helper'
 
 RSpec.describe CoursesController do
   let(:courses) { create_list(:course, 2) }
-  let(:course1) { courses.first }
-  let(:course2) { courses.last }
+  let(:course) { courses.first }
 
   describe "GET index" do
-    it "assigns @courses and render template" do
+    let(:course_last) { courses.last }
+
+    it "assigns @courses" do
       get :index
 
-      expect(assigns[:courses]).to eq([course1, course2])
+      expect(assigns[:courses]).to eq([course, course_last])
     end
 
     it "render template" do
       get :index
 
       expect(response).to render_template("index")
+    end
+  end
+
+  describe "GET show" do
+    it "assigns @course" do
+      get :show, params: { id: course.id }
+
+      expect(assigns[:course]).to eq(course)
+    end
+
+    it "render template" do
+      get :show, params: { id: course.id }
+
+      expect(response).to render_template("show")
     end
   end
 end
