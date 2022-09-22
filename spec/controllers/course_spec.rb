@@ -49,16 +49,18 @@ RSpec.describe CoursesController do
   end
 
   describe "POST create" do
+    let(:course_params) { { title: course.title, description: course.description } }
+
     it "create a new course record" do
-      post :create, params: { course: attributes_for(:course) }
+      post :create, params: { course: course_params }
 
       expect change{ Course.count }.by(1)
     end
 
     it "redirects to courses_path" do
-      post :create, params: { id: course.id, course: { title: course.title, description: course.description } }
+      post :create, params: { course: course_params }
 
-      expect(response).to redirect_to(course_path(course))
+      expect(response).to redirect_to(course_path(Course.last))
     end
 
     it "fails to create a new course record" do
@@ -89,6 +91,8 @@ RSpec.describe CoursesController do
   end
 
   describe "PUT update" do
+    let(:course_params) { { title: course.title, description: course.description } }
+
     it "updates course record" do
       put :update, params: { id: course.id, course: {title: "hello", description: "world"} }
 
@@ -104,10 +108,9 @@ RSpec.describe CoursesController do
     end
 
     it "fails to update course record" do
-      put :update, params: { id: course.id, course: {title: "hello", description: "world"} }
-      course.title = nil
+      put :update, params: { id: course.id, course: {title: nil, description: "world"} }
 
-      expect(course.title).to eq(nil)
+      expect(course.reload.title).to_not eq(nil)
     end
   end
 end
