@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class CoursesController < ApplicationController
   before_action :find_course, only: [:show, :edit, :update, :destroy]
-  before_action :course_params, only: [:create, :update]
 
   def index
     @courses = Course.all
@@ -15,8 +14,9 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+
     if @course.save
-      redirect_to(courses_path)
+      redirect_to(course_path(@course))
     else
       render "new"
     end
@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      redirect_to(courses_path)
+      redirect_to(course_path(@course))
     else
       render "edit"
     end
