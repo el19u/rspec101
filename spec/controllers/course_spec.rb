@@ -113,4 +113,24 @@ RSpec.describe CoursesController do
       expect(course.reload.title).to_not eq(nil)
     end
   end
+
+  describe "destroy course" do
+    it "assigns course" do
+      delete :destroy, params: { id: course.id }
+
+      expect(assigns["course"]).to eq(course)
+    end
+
+    it "delete course record" do
+      delete :destroy, params: { id: course.id }
+
+      expect change{ Course.count }.by(-1)
+    end
+
+    it "redirect to courses_path" do
+      delete :destroy, params: { id: course.id }
+
+      expect(response).to redirect_to(courses_path)
+    end
+  end
 end
